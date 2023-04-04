@@ -81,17 +81,12 @@ class LoseScene(Scene):
 
         gameover_text = "Game Over"
         text = font.gameover_font.render(gameover_text, 1, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*10))
+        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*20))
         screen.blit(text, text_pos)
 
-        gameover_text = "Classical computer"
+        gameover_text = "Press Space to Replay!"
         text = font.replay_font.render(gameover_text, 5, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*22))
-        screen.blit(text, text_pos)
-
-        gameover_text = "still rules the world"
-        text = font.replay_font.render(gameover_text, 5, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*27))
+        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*30))
         screen.blit(text, text_pos)
 
 class WinScene(Scene):
@@ -112,15 +107,15 @@ class WinScene(Scene):
 
         gameover_text = "Congratulations!"
         text = font.gameover_font.render(gameover_text, 5, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*10))
+        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*20))
         screen.blit(text, text_pos)
 
         gameover_text = "You demonstrated quantum advantage"
         text = font.replay_font.render(gameover_text, 5, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*22))
+        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*30))
         screen.blit(text, text_pos)
 
-        gameover_text = "for the first time in human history!"
+        gameover_text = "Press Space to Replay!"
         text = font.replay_font.render(gameover_text, 5, globals.WHITE)
-        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*27))
+        text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*35))
         screen.blit(text, text_pos)
