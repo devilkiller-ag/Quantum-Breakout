@@ -32,7 +32,7 @@ class GameScene(Scene):
         self.circuit_grid = CircuitGrid(5, globals.FIELD_HEIGHT)
         self.classical_paddle = paddle.Paddle(9*globals.WIDTH_UNIT)
         self.classical_computer = computer.ClassicalComputer(self.classical_paddle)
-        self.quantum_paddles = paddle.QuantumPaddles(globals.WINDOW_WIDTH - 9*globals.WIDTH_UNIT)
+        self.quantum_paddles = paddle.QuantumPaddles(globals.STATEVECTOR_WIDTH)
         self.quantum_computer = computer.QuantumComputer(self.quantum_paddles, self.circuit_grid)
         self.pong_ball = ball.Ball()
         self.moving_sprites = pygame.sprite.Group()

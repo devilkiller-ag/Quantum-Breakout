@@ -8,7 +8,6 @@ screen = pygame.display.set_mode((globals.WINDOW_WIDTH, globals.WINDOW_HEIGHT))
 pygame.display.set_caption('Quantum Breakout')
 clock = pygame.time.Clock()
 
-
 def main():
     # initialize game
     scene_manager = scene.SceneManager()

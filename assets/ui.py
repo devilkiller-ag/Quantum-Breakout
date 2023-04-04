@@ -4,18 +4,10 @@ from . import globals, resources
 
 def draw_statevector_grid(screen):
     font = resources.Font()
-    basis_states = [
-        '|000>',
-        '|001>',
-        '|010>',
-        '|011>',
-        '|100>',
-        '|101>',
-        '|110>',
-        '|111>'
-    ]
-    statevector_height = int(globals.WINDOW_HEIGHT * 0.62)
-    statevector_width = int(round(globals.WINDOW_WIDTH / len(basis_states)))
+    
+    basis_states = globals.BASIS_STATES
+    statevector_width = globals.STATEVECTOR_WIDTH
+    statevector_height = globals.STATEVECTOR_HEIGHT
 
     for i in range(len(basis_states)):
         text = font.vector_font.render(basis_states[i], 1, globals.WHITE)
