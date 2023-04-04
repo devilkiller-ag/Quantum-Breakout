@@ -7,8 +7,8 @@ from . import globals
 class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-
-        self.image = pygame.Surface([globals.WIDTH_UNIT, globals.WIDTH_UNIT])
+        self.ball_size = globals.WIDTH_UNIT
+        self.image = pygame.Surface([self.ball_size, self.ball_size])
         self.image.fill(globals.WHITE)
         self.rect = self.image.get_rect()
         self.velocity = [1,2]
@@ -16,11 +16,17 @@ class Ball(pygame.sprite.Sprite):
         self.reset(direction=1)
 
     def update(self, quantum_computer):
+        # Update position of ball
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
 
-        if self.rect.y < 0 or self.rect.y > globals.FIELD_HEIGHT - globals.WIDTH_UNIT:
+        # If ball reaches top or bottom wall of the screen: reverse the ball direction
+        if self.rect.y < 0 or self.rect.y > globals.FIELD_HEIGHT - self.ball_size:
             self.velocity[1] = -self.velocity[1]
+
+        # If ball reaches leftmost or rightmost wall of the screen: reverse the ball direction
+        if self.rect.x < 0 or self.rect.x > globals.WINDOW_WIDTH - self.ball_size:
+            self.velocity[0] = -self.velocity[0]
         
         # if self.rect.x < 0:
         #     self.reset(1)

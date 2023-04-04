@@ -19,7 +19,7 @@ class SceneManager:
         if len(self.scenes) > 0:
             self.scenes[-1].update(self)
     def draw(self, screen):
-        screen.fill(globals.BLACK)
+        screen.fill(globals.BLACK) # Clear the frame after every second and redraw updated objects
         if len(self.scenes) > 0:
             self.scenes[-1].draw(self, screen)
         pygame.display.flip()
@@ -32,20 +32,21 @@ class GameScene(Scene):
         self.circuit_grid = CircuitGrid(5, globals.FIELD_HEIGHT)
         self.quantum_paddles = paddle.QuantumPaddles(globals.STATEVECTOR_WIDTH)
         self.quantum_computer = computer.QuantumComputer(self.quantum_paddles, self.circuit_grid)
-        self.pong_ball = ball.Ball()
+        self.game_ball = ball.Ball()
         self.moving_sprites = pygame.sprite.Group()
         self.moving_sprites.add(self.quantum_paddles.paddles)
-        self.moving_sprites.add(self.pong_ball)
+        self.moving_sprites.add(self.game_ball)
     
     def update(self, sm):
+        ## Detect Close and Exit
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sm.exit = True
             elif event.type == pygame.KEYDOWN:
                 self.circuit_grid.handle_input(event.key)
 
-        self.pong_ball.update(self.quantum_computer)
-        self.quantum_computer.update(self.pong_ball)
+        self.game_ball.update(self.quantum_computer)
+        self.quantum_computer.update(self.game_ball)
 
         if self.quantum_computer.score >= globals.WIN_SCORE:
             sm.push(WinScene())
