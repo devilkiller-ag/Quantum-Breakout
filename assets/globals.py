@@ -2,7 +2,7 @@
 WHITE = 255, 255, 255
 BLACK = 0, 0, 0
 MAGENTA = 255, 0, 255
-GRAY = 127, 127, 127
+GRAY = 194, 192, 192
 
 # number of the qubits for the quantum circuit
 NUM_QUBITS=3

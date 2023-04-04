@@ -30,13 +30,10 @@ class GameScene(Scene):
     def __init__(self) -> None:
         super().__init__()
         self.circuit_grid = CircuitGrid(5, globals.FIELD_HEIGHT)
-        self.classical_paddle = paddle.Paddle(9*globals.WIDTH_UNIT)
-        self.classical_computer = computer.ClassicalComputer(self.classical_paddle)
         self.quantum_paddles = paddle.QuantumPaddles(globals.STATEVECTOR_WIDTH)
         self.quantum_computer = computer.QuantumComputer(self.quantum_paddles, self.circuit_grid)
         self.pong_ball = ball.Ball()
         self.moving_sprites = pygame.sprite.Group()
-        self.moving_sprites.add(self.classical_paddle)
         self.moving_sprites.add(self.quantum_paddles.paddles)
         self.moving_sprites.add(self.pong_ball)
     
@@ -47,20 +44,16 @@ class GameScene(Scene):
             elif event.type == pygame.KEYDOWN:
                 self.circuit_grid.handle_input(event.key)
 
-        self.pong_ball.update(self.classical_computer, self.quantum_computer)
-        self.classical_computer.update(self.pong_ball)
+        self.pong_ball.update(self.quantum_computer)
         self.quantum_computer.update(self.pong_ball)
 
-        if self.classical_computer.score >= globals.WIN_SCORE:
-            sm.push(LoseScene())
-        elif self.quantum_computer.score >= globals.WIN_SCORE:
+        if self.quantum_computer.score >= globals.WIN_SCORE:
             sm.push(WinScene())
 
     def draw(self, sm, screen):
         self.circuit_grid.draw(screen)
         ui.draw_statevector_grid(screen)
-        ui.draw_score(screen, self.classical_computer.score, self.quantum_computer.score)
-        ui.draw_dashed_line(screen)
+        ui.draw_score(screen, self.quantum_computer.score)
         self.moving_sprites.draw(screen)
 
 class LoseScene(Scene):
