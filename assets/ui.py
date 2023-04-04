@@ -14,12 +14,13 @@ def draw_statevector_grid(screen):
         '|110>',
         '|111>'
     ]
-    statevector_height = int(round(globals.FIELD_HEIGHT / len(basis_states)))
+    statevector_height = int(globals.WINDOW_HEIGHT * 0.62)
+    statevector_width = int(round(globals.WINDOW_WIDTH / len(basis_states)))
 
     for i in range(len(basis_states)):
         text = font.vector_font.render(basis_states[i], 1, globals.WHITE)
-        screen.blit(text, (globals.WINDOW_WIDTH - text.get_width(),
-                           i*statevector_height + text.get_height()))
+        screen.blit(text, (i*statevector_width + text.get_width() / 2,
+                           statevector_height + text.get_height()))
 
 def draw_score(screen, classical_score, quantum_score):
     font = resources.Font()
