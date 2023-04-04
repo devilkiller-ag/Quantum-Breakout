@@ -11,40 +11,38 @@ class Ball(pygame.sprite.Sprite):
         self.image = pygame.Surface([self.ball_size, self.ball_size])
         self.image.fill(globals.WHITE)
         self.rect = self.image.get_rect()
-        self.velocity = [1,2]
         self.initial_speed = 2
-        self.reset(direction=1)
+        self.velocity = [1,2] * self.initial_speed
+        self.reset()
 
     def update(self, quantum_computer):
         # Update position of ball
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]
 
-        # If ball reaches top or bottom wall of the screen: reverse the ball direction
-        if self.rect.y < 0 or self.rect.y > globals.FIELD_HEIGHT - self.ball_size:
+        # If ball reaches top of the screen: reverse the ball direction
+        if self.rect.y < 0:
             self.velocity[1] = -self.velocity[1]
 
         # If ball reaches leftmost or rightmost wall of the screen: reverse the ball direction
         if self.rect.x < 0 or self.rect.x > globals.WINDOW_WIDTH - self.ball_size:
             self.velocity[0] = -self.velocity[0]
         
-        # if self.rect.x < 0:
-        #     self.reset(1)
-        #     quantum_computer.score += 1
-        # elif self.rect.x > globals.WINDOW_WIDTH:
-        #     self.reset(-1)
-        #     classical_computer.score += 1
+        # Reset the ball if it gets out of the screen
+        if self.rect.y > globals.FIELD_HEIGHT + self.ball_size:
+            self.reset()
+            # Reset the player score
+            quantum_computer.score = 0
 
     def bounce(self):
-        # ball is sped up 50% after each bounce
-        self.velocity[0] = -self.velocity[0] * 1.5
-        self.velocity[1] = self.velocity[1] * 1.5      
+        # If you want to sped up ball after each bounce: change the percentage_speed_up {[0,1)}
+        percentage_speed_up = 0
+        self.velocity[0] = -self.velocity[0] * (1 + percentage_speed_up)
+        self.velocity[1] = self.velocity[1] * (1 + percentage_speed_up)
 
-    def reset(self, direction):
-        self.rect.centerx = globals.WINDOW_WIDTH / 2
-        self.rect.centery = globals.FIELD_HEIGHT / 2
-
-        if direction > 0:
-            self.velocity = [random.randint(2,4), random.randint(-4,4)] * self.initial_speed
-        else:
-            self.velocity = [random.randint(-4,-2), random.randint(-4,4)] * self.initial_speed
+    def reset(self):
+        self.rect.centerx = globals.PADDLE_WIDTH / 2
+        self.rect.centery = globals.WINDOW_HEIGHT * 0.59
+        
+        # Always go upward when game starts/restarts
+        self.velocity = [-1, -2] * self.initial_speed
