@@ -1,7 +1,7 @@
 import pygame
 
 from assets.circuit_grid import CircuitGrid
-from assets import globals, ui, paddle, ball, computer, resources
+from assets import globals, ui, paddle, ball, computer, resources, bricks
 
 class Scene:
     def __init__(self) -> None:
@@ -33,9 +33,11 @@ class GameScene(Scene):
         self.quantum_paddles = paddle.QuantumPaddles(globals.STATEVECTOR_WIDTH)
         self.quantum_computer = computer.QuantumComputer(self.quantum_paddles, self.circuit_grid)
         self.game_ball = ball.Ball()
+        self.brick_layers = bricks.BricksLayers()
         self.moving_sprites = pygame.sprite.Group()
         self.moving_sprites.add(self.quantum_paddles.paddles)
         self.moving_sprites.add(self.game_ball)
+        
     
     def update(self, sm):
         ## Detect Close and Exit
@@ -48,8 +50,30 @@ class GameScene(Scene):
         self.game_ball.update(self.quantum_computer)
         self.quantum_computer.update(self.game_ball)
 
-        if self.quantum_computer.score >= globals.WIN_SCORE:
+        ## Collision of Ball and Bricks
+        for brick in self.brick_layers.bricks:
+            ball_x = self.game_ball.rect.x
+            ball_y = self.game_ball.rect.y
+            brick_x = brick.rect.x
+            brick_y = brick.rect.y
+            if (ball_x >= brick_x and ball_x <= (brick_x + globals.BRICK_WIDTH)) or ((ball_x + globals.BALL_SIZE) >= brick_x and (ball_x + globals.BALL_SIZE) <= (brick_x + globals.BRICK_WIDTH)):
+                if (ball_y >= brick_y and ball_y <= (brick_y + globals.BRICK_HEIGHT)) or ((ball_y + globals.BALL_SIZE) >= brick_y and (ball_y + globals.BALL_SIZE) <= (brick_y + globals.BRICK_HEIGHT)):
+                    brick.visible = False
+                    self.brick_layers.bricks.pop(self.brick_layers.bricks.index(brick))
+                    self.game_ball.bounce()
+                    # Increase Player Score
+                    globals.player_score += 1
+        
+        ## WIN CONDITION
+        if globals.player_score >= globals.WIN_SCORE:
+            print("Player won the game")
             sm.push(WinScene())
+
+        ## LOSE CONDITION
+        if globals.ball_dropped >= globals.LOSE_SCORE:
+            print("Player lose the game")
+            sm.push(LoseScene())
+
 
     def draw(self, sm, screen):
         self.circuit_grid.draw(screen)
@@ -57,11 +81,19 @@ class GameScene(Scene):
         ui.draw_score(screen, self.quantum_computer.score)
         self.moving_sprites.draw(screen)
 
+        for brick in self.brick_layers.bricks:
+            brick.draw(screen)
+
 class LoseScene(Scene):
     def __init__(self) -> None:
         super().__init__()
 
     def update(self, sm):
+        # RESET PLAYER DATA
+        globals.player_score = 0
+        globals.ball_dropped = 0
+
+        # DETECT KEY PRESS AND DO ACTION
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sm.exit = True
@@ -89,6 +121,11 @@ class WinScene(Scene):
 
     def update(self, sm):
         for event in pygame.event.get():
+            # RESET PLAYER DATA
+            globals.player_score = 0
+            globals.ball_dropped = 0
+
+            # DETECT KEY PRESS AND DO ACTION
             if event.type == pygame.QUIT:
                 sm.exit = True
             elif event.type == pygame.KEYDOWN:

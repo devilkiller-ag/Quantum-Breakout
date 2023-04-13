@@ -7,7 +7,7 @@ from . import globals
 class Ball(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.ball_size = globals.WIDTH_UNIT
+        self.ball_size = globals.BALL_SIZE
         self.image = pygame.Surface([self.ball_size, self.ball_size])
         self.image.fill(globals.WHITE)
         self.rect = self.image.get_rect()
@@ -31,14 +31,14 @@ class Ball(pygame.sprite.Sprite):
         # Reset the ball if it gets out of the screen
         if self.rect.y > globals.FIELD_HEIGHT + self.ball_size:
             self.reset()
-            # Reset the player score
-            quantum_computer.score = 0
+            # Increase the no. of ball dropped
+            globals.ball_dropped += 1
 
     def bounce(self):
         # If you want to sped up ball after each bounce: change the percentage_speed_up {[0,1)}
         percentage_speed_up = 0
-        self.velocity[0] = -self.velocity[0] * (1 + percentage_speed_up)
-        self.velocity[1] = self.velocity[1] * (1 + percentage_speed_up)
+        self.velocity[0] = self.velocity[0] * (1 + percentage_speed_up)
+        self.velocity[1] = -self.velocity[1] * (1 + percentage_speed_up)
 
     def reset(self):
         self.rect.centerx = globals.PADDLE_WIDTH / 2

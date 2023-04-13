@@ -29,7 +29,7 @@ class QuantumComputer(Computer):
         self.paddles = quantum_paddles.paddles 
         self.score = 0
         self.circuit_grid = circuit_grid
-        self.measured_state = 0
+        self.measured_state = 0 
         self.last_measurement_time = pygame.time.get_ticks() - globals.MEASUREMENT_COOLDOWN_TIME
 
     def update(self, ball):
