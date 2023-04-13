@@ -78,7 +78,7 @@ class GameScene(Scene):
     def draw(self, sm, screen):
         self.circuit_grid.draw(screen)
         ui.draw_statevector_grid(screen)
-        ui.draw_score(screen, self.quantum_computer.score)
+        ui.draw_score(screen, globals.player_score)
         self.moving_sprites.draw(screen)
 
         for brick in self.brick_layers.bricks:
