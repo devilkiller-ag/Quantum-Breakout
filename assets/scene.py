@@ -18,6 +18,7 @@ class SceneManager:
     def update(self):
         if len(self.scenes) > 0:
             self.scenes[-1].update(self)
+
     def draw(self, screen):
         screen.fill(globals.BLACK) # Clear the frame after every second and redraw updated objects
         if len(self.scenes) > 0:
@@ -40,12 +41,16 @@ class GameScene(Scene):
         
     
     def update(self, sm):
-        ## Detect Close and Exit
         for event in pygame.event.get():
+            ## Detect Close and Exit
             if event.type == pygame.QUIT:
                 sm.exit = True
             elif event.type == pygame.KEYDOWN:
                 self.circuit_grid.handle_input(event.key)
+            
+            # if event.type == pygame.K_p:
+            #     print("pressed Pause")
+            #     sm.push(PauseScene())
 
         self.game_ball.update(self.quantum_computer)
         self.quantum_computer.update(self.game_ball)
@@ -150,3 +155,22 @@ class WinScene(Scene):
         text = font.replay_font.render(gameover_text, 5, globals.WHITE)
         text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*35))
         screen.blit(text, text_pos)
+
+# class PauseScene(Scene):
+#     def __init__(self) -> None:
+#         super().__init__()
+#         print("Entered Pause");
+
+#     def update(self, sm):
+#         # DETECT KEY PRESS AND DO ACTION
+#         for event in pygame.event.get():
+#             if event.type == pygame.K_p:
+#                 pass
+        
+#     def draw(self, sm, screen):
+#         font = resources.Font()
+
+#         gameover_text = "Press Space to get back to game!"
+#         text = font.gameover_font.render(gameover_text, 5, globals.WHITE)
+#         text_pos = text.get_rect(center=(globals.WINDOW_WIDTH/2, globals.WIDTH_UNIT*20))
+#         screen.blit(text, text_pos)

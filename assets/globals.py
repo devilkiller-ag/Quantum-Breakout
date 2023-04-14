@@ -51,8 +51,11 @@ MEASUREMENT_COOLDOWN_TIME = 4000
 WIN_SCORE = 5
 
 # Number of ball drops for player to lose game
-LOSE_SCORE = 2
+LOSE_SCORE = 8
 
 # PLAYER SCORE
 player_score = 0
 ball_dropped = 0
+
+# GAME PAUSE
+game_paused = False
