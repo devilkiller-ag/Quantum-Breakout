@@ -3,5 +3,5 @@ Quantum Version of Classic Breakout Game
 
 Inspired by QPong
 
-## Resources Used
-The files in assets folder belong to [QPong Livestream Tutorial](https://github.com/QPong/qpong-livestream)
+# Game Demo
+https://user-images.githubusercontent.com/43639341/232225302-bed08bac-010c-4569-94d2-819d7329568d.mp4
