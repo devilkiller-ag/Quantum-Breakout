@@ -1,4 +1,4 @@
-# Quantum Space Invader
+# Quantum Breakout
 Quantum Version of Classic Breakout Game
 
 Inspired by QPong
