@@ -1,4 +1,7 @@
 # Quantum Breakout
+
+[Download from Itch.io](https://jaisarita.itch.io/quantum-breakout)
+
 Quantum Version of Classic Breakout Game
 
 Inspired by QPong
