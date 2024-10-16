@@ -18,8 +18,12 @@ https://user-images.githubusercontent.com/43639341/232225302-bed08bac-010c-4569-
 # Download & Install Instruction
 1) Unzip the Downloaded Zip File
 2) Open the Game Folder
-3) Install the requirements using the command: `pip install -r requirements-dev.txt​` on your terminal.
-4) Run the `main.py` file using the command: `python main.py`
+3) Create a virtual enviornment using the command: `python -m venv qenv` on your terminal.
+4) Activate the virtual enviorment: 
+   - For windows: `.\qenv\Scripts\Activate.ps1`
+   - For linux: `source qenv/bin/activate`
+5) Install the requirements using the command: `pip install -r requirements-dev.txt​` on your terminal.
+6) Run the `main.py` file using the command: `python main.py`
 
 # Play Instruction
 - Use the W, A, S, and D keys to move the marker on the circuit for adding gates at appropriate places.

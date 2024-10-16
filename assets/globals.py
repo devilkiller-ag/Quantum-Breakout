@@ -5,25 +5,16 @@ MAGENTA = 255, 0, 255
 GRAY = 194, 192, 192
 
 # number of the qubits for the quantum circuit
-NUM_QUBITS=3
+NUM_QUBITS = 3
 
 # Statevector
-BASIS_STATES = [
-        '|000>',
-        '|001>',
-        '|010>',
-        '|011>',
-        '|100>',
-        '|101>',
-        '|110>',
-        '|111>'
-    ]
+BASIS_STATES = ["|000>", "|001>", "|010>", "|011>", "|100>", "|101>", "|110>", "|111>"]
 
 # Game dimensions
 WINDOW_WIDTH = 1200
 WINDOW_HEIGHT = 750
-FIELD_HEIGHT = round(WINDOW_HEIGHT * 0.7) # height of pong play field
-WIDTH_UNIT = round(WINDOW_WIDTH / 100) # width unit used for scaling the game
+FIELD_HEIGHT = round(WINDOW_HEIGHT * 0.7)  # height of pong play field
+WIDTH_UNIT = round(WINDOW_WIDTH / 100)  # width unit used for scaling the game
 
 ## PADDLES
 # PADDLE_WIDTH = round(FIELD_HEIGHT / 2**NUM_QUBITS) # NOT ACCURATE: Just keep here for future reference
@@ -48,7 +39,7 @@ NUMLAYERS = 5
 MEASUREMENT_COOLDOWN_TIME = 4000
 
 # score to win a game
-WIN_SCORE = 5
+WIN_SCORE = 10
 
 # Number of ball drops for player to lose game
 LOSE_SCORE = 8
