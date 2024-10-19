@@ -39,7 +39,7 @@ NUMLAYERS = 5
 MEASUREMENT_COOLDOWN_TIME = 4000
 
 # score to win a game
-WIN_SCORE = 10
+WIN_SCORE = 5
 
 # Number of ball drops for player to lose game
 LOSE_SCORE = 8
